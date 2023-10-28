@@ -7,8 +7,6 @@ import {useMutation} from '@apollo/client';
 import {useDispatch, useSelector} from 'react-redux';
 
 import theme from '../../theme';
-// import {LOGIN} from '../../utils/graphql/queries';
-const LOGIN = null;
 import {setUser} from '../../store/user';
 
 import {setAppState} from '../../store/app';
@@ -19,6 +17,7 @@ import {
   SafeAreaMarginIncludedScreenWrapper,
 } from '../../components/elements/utility';
 import navigationNames from '../../navigationNames';
+import {LOGIN} from '../../graphql/queries';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -35,14 +34,14 @@ export default function Login() {
   };
   const [userData, setUserData] = useState(initialData);
 
-  //   const [loginFunction, {reset}] = useMutation(LOGIN);
+  const [loginFunction, {reset}] = useMutation(LOGIN);
 
   const handleLogin = async () => {
     const email = userData.email.toLowerCase();
     const password = userData.password;
     if (!email || !password) return;
     const input = {...userData, email};
-    setIsProcessing(true);
+    setIsProcessing(true); //
     try {
       await loginFunction({
         variables: {
@@ -51,32 +50,27 @@ export default function Login() {
       })
         .then(response => {
           setIsProcessing(false);
-          const token = response?.data?.logInUser?.token;
-          const code = response?.data?.logInUser?.code;
-          const message = response?.data?.logInUser?.message;
-          const user = response?.data?.logInUser?.user;
+          const token = response?.data?.signIn?.token;
+          const code = response?.data?.signIn?.code;
+          const message = response?.data?.signIn?.message;
+          const user = response?.data?.signIn?.user;
           const newUserData = {
             token,
             ...user,
           };
           if (code !== 200) {
-            if (code == 800 || code == 801 || code == 802) {
-              Alert.alert('Login Failed!', message, [{text: 'Ok'}]);
-            } else {
-              Alert.alert(
-                'Login Failed!',
-                'An error occured while trying to sign you in. Please try again',
-                [{text: 'Ok'}],
-              );
-            }
+            Alert.alert('Login Failed!', message, [{text: 'Ok'}]);
           } else {
             dispatch(setUser(newUserData));
+            if (user.emailVerified != true) {
+              navigation.navigate(navigationNames.EmailVerification);
+            }
+            // gelsamyxvwibcv@hldrive.com
           }
           reset();
         })
         .catch(err => {
           setIsProcessing(false);
-          console.log({err});
           Alert.alert(
             'Login Failed!',
             'An error occured while trying to sign you in. Please check your internet connection and try again',
@@ -86,9 +80,9 @@ export default function Login() {
     } catch (error) {}
   };
 
-  useEffect(() => {
-    appState == 'background' && dispatch(setAppState('active'));
-  }, [appState]);
+  // useEffect(() => {
+  //   appState == 'background' && dispatch(setAppState('active'));
+  // }, [appState]);
   return (
     <SafeAreaMarginIncludedScreenWrapper
       contentContainerStyle={{

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -13,6 +13,13 @@ import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimen
 import {useSelector} from 'react-redux';
 import Modal from 'react-native-modal';
 import LottieView from 'lottie-react-native';
+import {
+  ApolloClient,
+  ApolloProvider,
+  createHttpLink,
+  InMemoryCache,
+} from '@apollo/client';
+import {setContext} from '@apollo/client/link/context';
 
 import theme from '../../theme';
 import AuthBackArrowHeader from './NavigationHeaders';
@@ -300,4 +307,30 @@ export const capitalizeFirstLetter = inputString => {
     return inputString;
   }
   return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+};
+
+export const CustomApolloProvider = props => {
+  const token = useSelector(state => state?.user?.user?.token);
+  const client = useMemo(() => {
+    const authLink = setContext((_, {headers}) => {
+      // get the authentication token from local storage if it exists
+      // return the headers to the context so httpLink can read them
+      return {
+        headers: {
+          ...headers,
+          authorization: token ? `Bearer ${token}` : '',
+        },
+      };
+    });
+
+    const httpLink = createHttpLink({
+      uri: 'http://localhost:4000/graphql',
+    });
+
+    return new ApolloClient({
+      link: authLink.concat(httpLink),
+      cache: new InMemoryCache(),
+    });
+  }, [token]);
+  return <ApolloProvider client={client} {...props} />;
 };

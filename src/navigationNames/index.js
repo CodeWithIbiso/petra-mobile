@@ -10,4 +10,10 @@ export default {
   EmailVerification: 'EmailVerification',
   ForgotPassword: 'ForgotPassword',
   ResetPassword: 'ResetPassword',
+  // CONTENT
+  Home: 'Home',
+  Account: 'Account',
+  Notifications: 'Notifications',
+  Spots: 'Spots',
+  BottomTabNavigation: 'BottomTabNavigation',
 };

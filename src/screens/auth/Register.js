@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import forge from 'node-forge';
 import {useDispatch, useSelector} from 'react-redux';
 
-// import {REGISTER, SET_USER_CREDENTIALS} from '../../utils/graphql/queries';
+// import { SET_USER_CREDENTIALS} from '../../utils/graphql/queries';
 import {setUser} from '../../store/user';
 import images from '../../assets';
 import {setPrivateKey, setPublicKey, setSecretKey} from '../../store/lock';
@@ -20,6 +20,7 @@ import {
 } from '../../components/elements/utility';
 import theme from '../../theme';
 import navigationNames from '../../navigationNames';
+import {REGISTER, SET_USER_CREDENTIALS} from '../../graphql/queries';
 
 const initialInputData = {
   firstname: '',
@@ -76,11 +77,11 @@ export default function Register() {
   const navigation = useNavigation();
 
   // MUTATION DEFINITION
-  //   const [registerFunction, {data, loading, error, reset}] =
-  //     useMutation(REGISTER);
+  const [registerFunction, {data, loading, error, reset}] =
+    useMutation(REGISTER);
 
-  //   const [setUserCredentials, {reset: reset_}] =
-  //     useMutation(SET_USER_CREDENTIALS);
+  const [setUserCredentials, {reset: reset_}] =
+    useMutation(SET_USER_CREDENTIALS);
 
   const setUserCredentialsFunc = () => {
     let newKeys;
@@ -93,12 +94,15 @@ export default function Register() {
         });
       }
     }
+
     setUserCredentials({
       variables: {
         publicKey: keys.publicKey || newKeys?.publicKey,
         secretKey: keys.secretKey || newKeys?.secretKey,
       },
       onCompleted: res => {
+        console.log({res});
+        return;
         navigation.navigate(navigationNames.EmailVerification);
       },
       onError: err => {},
@@ -110,14 +114,13 @@ export default function Register() {
 
   const handleRegister = async () => {
     setIsSaving(true);
-
     try {
       await registerFunction({
         variables: {
           input: {...userData, email: userData.email.toLowerCase()},
         },
       }).then(response => {
-        const user = response?.data?.createUser;
+        const user = response?.data?.signUp;
         if (user?.code !== 200) {
           Alert.alert(capitalizeFirstLetter(user?.message), [{text: 'Ok'}]);
           return;
