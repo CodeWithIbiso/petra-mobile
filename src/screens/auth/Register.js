@@ -101,8 +101,6 @@ export default function Register() {
         secretKey: keys.secretKey || newKeys?.secretKey,
       },
       onCompleted: res => {
-        console.log({res});
-        return;
         navigation.navigate(navigationNames.EmailVerification);
       },
       onError: err => {},

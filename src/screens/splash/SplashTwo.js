@@ -10,10 +10,12 @@ import {
   SafeAreaMarginIncludedScreenWrapper,
 } from '../../components/elements/utility';
 import {SplashNavigationHeader} from '../../components/elements/NavigationHeaders';
+import {useSelector} from 'react-redux';
 
 export default function SplashTwo() {
   const navigation = useNavigation();
   const {width} = useWindowDimensions();
+  const {themeStyle} = useSelector(state => state.app);
 
   const handleLevel = () => {
     navigation.navigate(navigationNames.SplashThree);
@@ -31,10 +33,16 @@ export default function SplashTwo() {
             fontWeight: 'bold',
             marginTop: 60,
             fontSize: 24,
+            color: themeStyle.primaryText,
           }}>
           Make orders
         </Text>
-        <Text>Now you can make orders right from your phone </Text>
+        <Text
+          style={{
+            color: themeStyle.primaryText,
+          }}>
+          Now you can make orders right from your phone{' '}
+        </Text>
 
         <LottieView
           style={{

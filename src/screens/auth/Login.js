@@ -65,7 +65,6 @@ export default function Login() {
             if (user.emailVerified != true) {
               navigation.navigate(navigationNames.EmailVerification);
             }
-            // gelsamyxvwibcv@hldrive.com
           }
           reset();
         })

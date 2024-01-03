@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, Text, useWindowDimensions} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Lottie from 'lottie-react-native';
 
 import navigationNames from '../../navigationNames';
@@ -17,6 +17,7 @@ export default SplashThree = () => {
   const navigation = useNavigation();
   const {width} = useWindowDimensions();
   const dispatch = useDispatch();
+  const {themeStyle} = useSelector(state => state.app);
 
   const handleLevel = () => {
     dispatch(setSplashHasShown());
@@ -35,10 +36,16 @@ export default SplashThree = () => {
             fontWeight: 'bold',
             marginTop: 60,
             fontSize: 24,
+            color: themeStyle.primaryText,
           }}>
           Grow your business{' '}
         </Text>
-        <Text>Now you can grow your business right from your phone </Text>
+        <Text
+          style={{
+            color: themeStyle.primaryText,
+          }}>
+          Now you can grow your business right from your phone{' '}
+        </Text>
         <Lottie
           speed={0.9}
           style={{

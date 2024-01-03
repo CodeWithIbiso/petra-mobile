@@ -27,6 +27,14 @@ import Account from './src/screens/content/Account';
 import Notifications from './src/screens/content/Notifications';
 import Spots from './src/screens/content/Spots';
 import CustomDrawerContent from './src/screens/content/CustomDrawerContent';
+import Settings from './src/screens/content/Settings';
+import SpotCreation from './src/screens/content/spots/SpotCreation';
+import UserSpots from './src/screens/content/spots/UserSpots';
+import Spot from './src/screens/content/spots/Spot';
+import SpotProfile from './src/screens/content/spots/SpotProfile';
+import CustomBottomNavigator from './src/components/navigation/CustomBottomNavigator';
+import ChatSpot from './src/screens/content/spots/ChatSpot';
+import Chats from './src/screens/content/Chats';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -75,6 +83,19 @@ const ContentNavigationStack = () => {
         name={navigationNames.BottomTabNavigation}
         component={BottomTabNavigation}
       />
+      <Stack.Screen name={navigationNames.Account} component={Account} />
+      <Stack.Screen
+        name={navigationNames.SpotCreation}
+        component={SpotCreation}
+      />
+      <Stack.Screen name={navigationNames.UserSpots} component={UserSpots} />
+      <Stack.Screen name={navigationNames.Spot} component={Spot} />
+      <Stack.Screen
+        name={navigationNames.SpotProfile}
+        component={SpotProfile}
+      />
+      <Stack.Screen name={navigationNames.ChatSpot} component={ChatSpot} />
+      <Stack.Screen name={navigationNames.Chats} component={Chats} />
     </Stack.Navigator>
   );
 };
@@ -97,14 +118,19 @@ const StackNavigation = () => {
 
 const BottomTabNavigation = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName={navigationNames.Home}
+      tabBar={props => <CustomBottomNavigator {...props} />}>
       <Tab.Screen name={navigationNames.Home} component={Home} />
-      <Tab.Screen name={navigationNames.Account} component={Account} />
+      <Tab.Screen name={navigationNames.Spots} component={Spots} />
       <Tab.Screen
         name={navigationNames.Notifications}
         component={Notifications}
       />
-      <Tab.Screen name={navigationNames.Spots} component={Spots} />
+      <Tab.Screen name={navigationNames.Settings} component={Settings} />
     </Tab.Navigator>
   );
 };

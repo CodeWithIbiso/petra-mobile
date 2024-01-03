@@ -43,7 +43,8 @@ target 'PetraMobile' do
     # :flipper_configuration => flipper_config,
     :flipper_configuration => FlipperConfiguration.enabled(["Debug"]),
     # An absolute path to your application root.
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
+    :app_path => "#{Pod::Config.instance.installation_root}/..",
+    :path => '../node_modules/rn-fetch-blob'
   )
 
   target 'PetraMobileTests' do

@@ -5,11 +5,21 @@ import theme from '../../theme';
 import assets from '../../assets';
 import LottieView from 'lottie-react-native';
 import navigationNames from '../../navigationNames';
+import {useSelector} from 'react-redux';
 
 export default function Splash() {
   const navigation = useNavigation();
+  const splashHasShown = useSelector(state => state?.app?.splashHasShown);
+  const user = useSelector(state => state?.user?.user);
+
   const handleNavigation = () => {
-    navigation.navigate(navigationNames.SplashOne);
+    if (user?.token) {
+      navigation.navigate(NavigationNames.BottomTabNavigation);
+    } else {
+      navigation.navigate(
+        splashHasShown ? navigationNames.Login : navigationNames.SplashOne,
+      );
+    }
   };
   return (
     <View

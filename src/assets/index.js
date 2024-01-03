@@ -10,6 +10,14 @@ import splashScreenAnimationOne from './animations/splash/36605-shopping-cart.js
 import splashScreenAnimationTwo from './animations/splash/51053-delivery.json';
 import splashScreenAnimationThree from './animations/splash/86199-business-analytics.json';
 
+import emailSentAnimation from './animations/auth/emailSentAnimation.json';
+import modalFailedAnimation from './animations/auth/modalFailedAnimation.json';
+import modalSuccessAnimation from './animations/auth/modalSuccessAnimation.json';
+import forgotPasswordAnimation from './animations/auth/forgotPasswordAnimation.json';
+
+import mapsLocationPin from './animations/spot/maps-location.json';
+import mapsLocationRedPin from './animations/spot/maps-pin-location-red.json';
+
 export default {
   // IMAGES
   logoBlue,
@@ -21,4 +29,12 @@ export default {
   splashScreenAnimationOne,
   splashScreenAnimationTwo,
   splashScreenAnimationThree,
+  // AUTH
+  emailSentAnimation,
+  modalFailedAnimation,
+  modalSuccessAnimation,
+  forgotPasswordAnimation,
+  // SPOT
+  mapsLocationPin,
+  mapsLocationRedPin,
 };

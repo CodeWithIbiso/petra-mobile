@@ -208,7 +208,7 @@ const Menus = ({props, themeStyle}) => {
 
             color: themeStyle.primaryText,
           }}>
-          Chat
+          Chats
         </Text>
         <SimpleLineIcons
           name={'arrow-right'}

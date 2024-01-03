@@ -334,3 +334,18 @@ export const CustomApolloProvider = props => {
   }, [token]);
   return <ApolloProvider client={client} {...props} />;
 };
+
+export const maskEmail = email => {
+  // Split the email into username and domain
+  const [username, domain] = email.split('@');
+  // Check if the username has at least 3 characters
+  if (username.length < 3) {
+    return email; // Not enough characters to obscure, return the original email
+  }
+  // Replace characters in the username with asterisks
+  const obscuredUsername =
+    username.charAt(0) + '***' + username.charAt(username.length - 1);
+  // Combine the obscured username with the domain
+  const maskedEmail = obscuredUsername + '@' + domain;
+  return maskedEmail;
+};

@@ -16,4 +16,11 @@ export default {
   Notifications: 'Notifications',
   Spots: 'Spots',
   BottomTabNavigation: 'BottomTabNavigation',
+  Settings: 'Settings',
+  SpotCreation: 'SpotCreation',
+  UserSpots: 'UserSpots',
+  Spot: 'Spot',
+  SpotProfile: 'SpotProfile',
+  ChatSpot: 'ChatSpot',
+  Chats: 'Chats',
 };

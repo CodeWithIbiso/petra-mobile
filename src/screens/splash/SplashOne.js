@@ -10,10 +10,13 @@ import {
   SafeAreaMarginIncludedScreenWrapper,
 } from '../../components/elements/utility';
 import {SplashNavigationHeader} from '../../components/elements/NavigationHeaders';
+import {useSelector} from 'react-redux';
 
 export default function SplashOne() {
   const {width} = useWindowDimensions();
   const navigation = useNavigation();
+  const {themeStyle} = useSelector(state => state.app);
+
   const handleLevel = () => {
     navigation.navigate(navigationNames.SplashTwo);
   };
@@ -30,10 +33,16 @@ export default function SplashOne() {
             marginTop: 60,
             fontWeight: 'bold',
             fontSize: 24,
+            color: themeStyle.primaryText,
           }}>
           Save Locations
         </Text>
-        <Text>Now you can save popular spots right from your phone </Text>
+        <Text
+          style={{
+            color: themeStyle.primaryText,
+          }}>
+          Now you can save popular spots right from your phone{' '}
+        </Text>
         <Lottie
           style={{
             marginTop: 25,

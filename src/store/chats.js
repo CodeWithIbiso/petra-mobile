@@ -13,21 +13,16 @@ export const chatSlice = createSlice({
         let chats = {
           ...state.chats,
         };
-        const spotMessages = chats[spotId];
-        if (spotMessages) {
-          if (message?.length) {
-            chats = {...chats, [spotId]: [...spotMessages, ...message]};
+        let spotMessages = chats[spotId];
+        if (message?.length) {
+          if (spotMessages?.length) {
+            spotMessages = [...spotMessages, ...message];
           } else {
-            chats = {...chats, [spotId]: [...spotMessages, message]};
+            spotMessages = message;
           }
-        } else {
-          if (message?.length) {
-            chats = {...chats, [spotId]: [...message]};
-          } else {
-            chats = {...chats, [spotId]: [message]};
-          }
+          chats = {...chats, [spotId]: spotMessages};
+          state.chats = chats;
         }
-        state.chats = chats;
       } catch (error) {}
     },
     updateChatData: (state, action) => {
@@ -44,7 +39,7 @@ export const chatSlice = createSlice({
               },
             };
           } else {
-            return s;
+            return spotMessages;
           }
         });
         state.chats[spotId] = updatedSpotMessages;

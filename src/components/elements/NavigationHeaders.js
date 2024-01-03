@@ -10,12 +10,14 @@ export const SplashNavigationHeader = ({position}) => {
   const user = useSelector(state => state?.user?.user);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const {themeStyle} = useSelector(state => state.app);
 
   const handleNavigate = () => {
     dispatch(setSplashHasShown());
-
     navigation.navigate(
-      user?.token ? navigationNames?.BottomNavigation : navigationNames.Login,
+      user?.token
+        ? navigationNames?.BottomTabNavigation
+        : navigationNames.Login,
     );
   };
   return (
@@ -36,6 +38,7 @@ export const SplashNavigationHeader = ({position}) => {
         <Text
           style={{
             fontWeight: 'bold',
+            color: themeStyle.primaryText,
           }}>
           Skip
         </Text>

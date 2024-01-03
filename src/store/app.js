@@ -69,7 +69,7 @@ export const appSlice = createSlice({
     setScrollDirection: (state, action) => {
       state.scrollDirection = action.payload;
     },
-    setInitalState: (state, action) => {
+    setInitalState: state => {
       state.spots = [];
     },
     setTheme: (state, action) => {
