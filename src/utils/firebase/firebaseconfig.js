@@ -7,7 +7,7 @@ import {getFirestore} from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyCJFtUUcBKmnr6CLK8KNsARERcuGBUXLIs',
+  apiKey: '',
   authDomain: 'petra-messaging-tutorial.firebaseapp.com',
   projectId: 'petra-messaging-tutorial',
   storageBucket: 'petra-messaging-tutorial.appspot.com',
